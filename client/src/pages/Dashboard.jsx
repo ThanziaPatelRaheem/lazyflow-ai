@@ -9,7 +9,7 @@ import AddTaskModal from "../components/tasks/AddTaskModal";
 import TaskOverview from "../components/tasks/TaskOverview";
 import ConfirmModal from "../components/common/ConfrimModal";
 import { capitalizeFirstLetter, formatDeadline } from "../utils/formatText";
-import { isDuplicateMessage, rememberMessage } from "../utils/messageHistory";
+import { isDuplicateMessage, normalizeMessage } from "../utils/messageHistory";
 
 const Dashboard = () => {
   const [tasks, setTasks] = useState(() => {
@@ -54,7 +54,7 @@ const Dashboard = () => {
       setError("");
       setTaskNotice("");
 
-      if (isDuplicateMessage(message)) {
+      if (isDuplicateMessage(message, tasks)) {
         setTaskNotice(
           "This message has already been processed. No duplicate tasks were created.",
         );
@@ -78,19 +78,16 @@ const Dashboard = () => {
 
       const tasksWithIds = generatedTasks.map((task) => ({
         ...task,
-
         deadline: formatDeadline(task.deadline),
-
         id: crypto.randomUUID(),
         completed: false,
         groupId,
         groupTitle,
         generatedAt,
+        sourceMessage: normalizeMessage(message),
       }));
 
       setTasks((prevTasks) => [...prevTasks, ...tasksWithIds]);
-
-      rememberMessage(message);
     } catch (err) {
       setError(err.message);
     } finally {

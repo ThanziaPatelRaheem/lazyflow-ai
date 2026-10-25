@@ -1,6 +1,4 @@
 export const extractTasks = async (message) => {
-  // Give Gemma instructions for creating a group heading
-  // and extracting actionable tasks from the same message.
   const prompt = `
 You are an AI task extraction assistant for LazyFlow AI.
 
@@ -162,8 +160,6 @@ Message:
 ${message}
 `;
 
-  // Send the message and extraction instructions to
-  // the locally running Gemma model through Ollama.
   const response = await fetch(`${process.env.OLLAMA_BASE_URL}/api/generate`, {
     method: "POST",
     headers: {
@@ -173,23 +169,17 @@ ${message}
       model: process.env.OLLAMA_MODEL,
       prompt,
 
-      // Wait for the complete response instead of streaming.
       stream: false,
 
-      // Ask Ollama to return JSON output.
       format: "json",
     }),
   });
 
-  // Report errors if Ollama cannot process the request.
   if (!response.ok) {
     throw new Error(`Ollama request failed: ${response.status}`);
   }
 
-  // Read the Ollama API response.
   const data = await response.json();
 
-  // Parse Gemma's JSON text into a JavaScript object.
-  // Expected shape: { groupTitle, tasks }
   return JSON.parse(data.response);
 };

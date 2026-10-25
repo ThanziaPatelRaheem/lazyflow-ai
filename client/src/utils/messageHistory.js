@@ -1,12 +1,9 @@
-//  Stores a history of messages successfully processed by AI.
 const STORAGE_KEY = "lazyflow-message-history";
 
-//  Normalize a message before comparing it.
 export const normalizeMessage = (message) => {
   return message.trim().replace(/\s+/g, " ").toLowerCase();
 };
 
-//  Read previously processed messages from localStorage.
 
 const getMessageHistory = () => {
   try {

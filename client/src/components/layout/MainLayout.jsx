@@ -8,24 +8,20 @@ const MainLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-slate-100 p-3 sm:p-4 lg:p-5">
-      <div className="rounded-2xl bg-white shadow-sm">
+    <div className="flex min-h-screen flex-col bg-slate-100 p-3 sm:p-4 lg:p-5">
+      <div className="shrink-0 rounded-2xl bg-white shadow-sm">
         <Header onOpenMenu={() => setIsSidebarOpen(true)} />
       </div>
 
-      <div className="mt-3 flex items-stretch gap-4 md:mt-4 md:items-start">
+      <div className="mt-3 flex flex-1 items-start gap-4 md:mt-4">
         <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
 
         <main className="min-w-0 flex-1">
-          <div className="flex min-h-[calc(100vh-9rem)] w-full flex-col">
-            <div className="flex-1">
-              <Outlet />
-            </div>
-
-            <Footer />
-          </div>
+          <Outlet />
         </main>
       </div>
+
+      <Footer />
     </div>
   );
 };

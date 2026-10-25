@@ -11,12 +11,10 @@ const TaskList = ({
 }) => {
   if (tasks.length === 0) return null;
 
-  // Organize tasks using their groupId.
 
   const groupedTasks = tasks.reduce((groups, task) => {
     const groupId = task.groupId || "older-tasks";
 
-    // Create the group the first time its ID is encountered.
     if (!groups[groupId]) {
       groups[groupId] = {
         id: groupId,
@@ -26,16 +24,13 @@ const TaskList = ({
       };
     }
 
-    // Add the task to the matching group.
     groups[groupId].tasks.push(task);
 
     return groups;
   }, {});
 
-  // Convert groups into an array so React can render them.
   const taskGroups = Object.values(groupedTasks);
 
-  //   Convert the stored ISO timestamp into a readable date.
   const formatGeneratedAt = (date) => {
     if (!date) return "Date unavailable";
 
@@ -88,14 +83,6 @@ const TaskList = ({
                 />
                 Select All
               </label>
-
-              <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-600">
-                {group.id === "older-tasks"
-                  ? "Earlier Tasks"
-                  : group.id === "manual-tasks"
-                    ? "Manual"
-                    : "AI Extracted"}
-              </span>
             </div>
           </div>
 

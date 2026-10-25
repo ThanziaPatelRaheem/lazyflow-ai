@@ -18,7 +18,6 @@ const SavedListDetails = () => {
 
   const selectedList = savedLists.find((list) => list.id === listId);
 
-  // Persist updates and synchronize the sidebar
   useEffect(() => {
     localStorage.setItem("lazyflow-saved-lists", JSON.stringify(savedLists));
 

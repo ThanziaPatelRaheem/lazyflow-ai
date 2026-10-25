@@ -6,7 +6,6 @@ const MessageForm = ({ onGenerateTasks, isLoading, onMessageChange }) => {
     return localStorage.getItem("lazyflow-message") || "";
   });
 
-  // Keep the draft message available after refreshing the browser.
   useEffect(() => {
     localStorage.setItem("lazyflow-message", message);
   }, [message]);
@@ -14,7 +13,6 @@ const MessageForm = ({ onGenerateTasks, isLoading, onMessageChange }) => {
   const handleMessageChange = (value) => {
     setMessage(value);
 
-    // Clear old notifications when the user changes the message.
     onMessageChange?.();
   };
 

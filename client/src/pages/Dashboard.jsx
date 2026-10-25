@@ -11,22 +11,6 @@ import ConfirmModal from "../components/common/ConfrimModal";
 import { capitalizeFirstLetter, formatDeadline } from "../utils/formatText";
 import { isDuplicateMessage, rememberMessage } from "../utils/messageHistory";
 
-const createGroupTitle = (message) => {
-  // Remove common greetings from the beginning.
-  const cleanedMessage = message
-    .replace(/^(hey|hi|hello)\s+(team|everyone|all)?[,\s!]*/i, "")
-    .trim();
-
-  // Take the first sentence or line.
-  const firstSentence = cleanedMessage.split(/[.!?\n]/)[0];
-
-  // Limit the heading to six words.
-  const shortTitle = firstSentence.split(/\s+/).slice(0, 6).join(" ");
-
-  // Fall back to a default heading if needed.
-  return shortTitle || "Generated Tasks";
-};
-
 const Dashboard = () => {
   const [tasks, setTasks] = useState(() => {
     try {
@@ -50,18 +34,17 @@ const Dashboard = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  useEffect(() => {
+  const shouldShowAddTaskModal =
+    isAddTaskModalOpen || Boolean(location.state?.openAddTaskModal);
+
+  const handleCloseAddTaskModal = () => {
+    setIsAddTaskModalOpen(false);
+
     if (location.state?.openAddTaskModal) {
-      setIsAddTaskModalOpen(true);
-
-      navigate("/", {
-        replace: true,
-        state: null,
-      });
+      navigate("/", { replace: true, state: null });
     }
-  }, [location.state, navigate]);
+  };
 
-  // Automatically persist Dashboard tasks to localStorage.
   useEffect(() => {
     localStorage.setItem("lazyflow-tasks", JSON.stringify(tasks));
   }, [tasks]);
@@ -89,7 +72,6 @@ const Dashboard = () => {
         return;
       }
 
-      // Create a unique group for this message.
       const groupId = crypto.randomUUID();
 
       const generatedAt = new Date().toISOString();
@@ -124,7 +106,6 @@ const Dashboard = () => {
     );
   };
 
-  // Select or deselect an individual task for saving.
   const handleSelectTask = (taskId) => {
     setSelectedTaskIds((prevIds) =>
       prevIds.includes(taskId)
@@ -332,10 +313,10 @@ const Dashboard = () => {
         onSave={handleSaveList}
       />
 
-      {isAddTaskModalOpen && (
+      {shouldShowAddTaskModal && (
         <AddTaskModal
           onSave={handleAddTask}
-          onClose={() => setIsAddTaskModalOpen(false)}
+          onClose={handleCloseAddTaskModal}
         />
       )}
 

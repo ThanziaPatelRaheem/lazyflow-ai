@@ -11,6 +11,7 @@ const collectionColors = [
 
 const Sidebar = ({ isOpen, setIsOpen }) => {
   const navigate = useNavigate();
+
   const [savedLists, setSavedLists] = useState(() => {
     try {
       return JSON.parse(localStorage.getItem("lazyflow-saved-lists") || "[]");
@@ -54,7 +55,6 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
 
   return (
     <>
-      {/* Mobile overlay */}
       {isOpen && (
         <div
           className="fixed inset-0 z-40 bg-black/40 md:hidden"
@@ -63,14 +63,15 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
       )}
 
       <aside
-        className={`fixed inset-y-0 left-0 z-50 flex w-64 flex-col overflow-hidden rounded-r-2xl bg-white p-6 shadow-sm transition-transform duration-300 md:sticky md:top-4 md:z-20 md:h-[calc(100vh-2.5rem)] md:shrink-0 md:translate-x-0 md:rounded-2xl ${
+        className={`fixed inset-y-0 left-0 z-50 flex w-64 flex-col overflow-hidden rounded-r-2xl bg-white p-6 shadow-sm transition-transform duration-300 md:sticky md:top-4 md:z-20 md:h-[calc(100vh-2.5rem)] md:self-start md:shrink-0 md:translate-x-0 md:rounded-2xl ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="mb-5 flex items-center justify-between">
+        <div className="mb-5 flex shrink-0 items-center justify-between">
           <span className="text-sm font-semibold uppercase tracking-wider text-slate-400">
             Workspace
           </span>
+
           <button
             type="button"
             onClick={() => setIsOpen(false)}
@@ -81,7 +82,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
           </button>
         </div>
 
-        <nav className="space-y-2" aria-label="Main navigation">
+        <nav className="shrink-0 space-y-2" aria-label="Main navigation">
           <NavLink
             to="/"
             end
@@ -102,9 +103,9 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
           </NavLink>
         </nav>
 
-        <div className="mt-5 border-t border-slate-200" />
+        <div className="mt-5 shrink-0 border-t border-slate-200" />
 
-        <div className="mt-5 min-h-0 flex-1 overflow-y-auto">
+        <div className="mt-5 min-h-0 shrink overflow-y-auto">
           <div className="mb-3 px-4">
             <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
               Saved Collections
@@ -155,7 +156,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
         <button
           type="button"
           onClick={handleAddTaskClick}
-          className="mt-3 flex w-full shrink-0 items-center justify-center gap-2 rounded-xl bg-blue-50 px-3 py-2.5 text-sm font-semibold text-blue-600 transition-colors hover:bg-blue-100 md:mt-4 md:px-4 md:py-3 md:text-base"
+          className="mt-4 flex w-full shrink-0 items-center justify-center gap-2 rounded-xl bg-blue-50 px-3 py-2.5 text-sm font-semibold text-blue-600 transition-colors hover:bg-blue-100 md:px-4 md:py-3 md:text-base"
         >
           <Plus className="h-[18px] w-[18px] md:h-5 md:w-5" />
           Add Task

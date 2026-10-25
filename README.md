@@ -34,21 +34,33 @@ Users can extract, organize, prioritize, edit, complete, and save tasks through 
 
 ### Dashboard
 
+A clean dashboard to paste messages, generate tasks using AI, and track overall task progress.
+
 ![LazyFlow AI Dashboard](screenshots/dashboard.png)
 
 ### AI Task Extraction
+
+LazyFlow AI analyzes unstructured messages using Gemma 3 and extracts actionable tasks with priorities, deadlines, and meaningful group headings.
 
 ![AI Task Extraction](screenshots/ai-task-extraction.png)
 
 ### Task Group Selection
 
+Tasks extracted from different messages are organized into separate groups. Users can select individual tasks or use **Select All** to select an entire group, then save only the selected tasks into a collection.
+
+Unselected tasks remain on the Dashboard, allowing users to organize tasks across different collections.
+
 ![Task Group Selection](screenshots/task-group-selection.png)
 
 ### Saved Collections
 
+Create and manage named collections to organize tasks by project, activity, or category. Collections can also be renamed or deleted.
+
 ![Saved Collections](screenshots/saved-collections.png)
 
 ### Saved Collection Details
+
+Open a saved collection to view its tasks, mark tasks as completed, edit or delete tasks, and track completion progress.
 
 ![Saved Collection Details](screenshots/saved-collection-details.png)
 
@@ -64,7 +76,7 @@ Users can extract, organize, prioritize, edit, complete, and save tasks through 
 ### 1. Clone the repository
 
 ```bash
-git clone <your-repository-url>
+git clone https://github.com/ThanziaPatelRaheem/lazyflow-ai.git
 cd lazyflow-ai
 ```
 
